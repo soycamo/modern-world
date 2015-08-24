@@ -1,24 +1,34 @@
 var ModernWorld = {};
-ModernWorld.context = document.getElementById('tutorial').getContext('2d');
-ModernWorld.player = new Image();
+var Player = {};
+ModernWorld.canvas = document.getElementById('tutorial');
+ModernWorld.context = ModernWorld.canvas.getContext('2d');
+Player.img = new Image();
+Player.initial_pos = [400,350];
+Player.pos = [400,350];
 
 ModernWorld.render = function() {
     fg_color = '#00FF00'; // foreground color
 
-    ModernWorld.player.onload = function() {
+    Player.img.onload = function() {
         //ctx.moveTo(0,0);
         ModernWorld.context.beginPath();
-        ModernWorld.context.drawImage(ModernWorld.player,400,350);
+        ModernWorld.context.drawImage(Player.img,
+                                      Player.pos[0],
+                                      Player.pos[1]);
     }
-    ModernWorld.player.src = 'player.png';
+    Player.img.src = 'player.png';
 
     for(var i=1;i<=4;i++){
         ModernWorld.draw_house(ModernWorld.context, [(100*i)+(50*i),200]);
     }
 }
 
-ModernWorld.redraw_player = function () {
-    ModernWorld.context.drawImage(ModernWorld.player, coords[0], coords[1]);
+ModernWorld.redraw_player = function (increment) {
+    ModernWorld.context.clearRect(0, Player.initial_pos[1], ModernWorld.canvas.width, ModernWorld.canvas.height);
+    Player.pos[0] = Player.pos[0] + increment;
+    ModernWorld.context.drawImage(Player.img,
+                                  Player.pos[0],
+                                  Player.pos[1]);
 }
 
 
@@ -46,7 +56,7 @@ ModernWorld.draw_house = function (ctx, start_point) {
 document.addEventListener("DOMContentLoaded", function(event) {
     ModernWorld.render();
 });
-/*
+
 document.addEventListener("keydown", function (event) {
   if (event.defaultPrevented) {
     return; // Should do nothing if the key event was already consumed.
@@ -60,9 +70,11 @@ document.addEventListener("keydown", function (event) {
       // Do something for "up arrow" key press.
       break;
     case "ArrowLeft":
+        ModernWorld.redraw_player(-30);
       // Do something for "left arrow" key press.
       break;
     case "ArrowRight":
+        ModernWorld.redraw_player(30);
       // Do something for "right arrow" key press.
       break;
     case "Enter":
@@ -78,4 +90,4 @@ document.addEventListener("keydown", function (event) {
   // Consume the event for suppressing "double action".
   event.preventDefault();
 }, true);
-*/
+
