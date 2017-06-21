@@ -8,10 +8,16 @@
         <meta name="viewport" content="width=device-width">
         <style>
             canvas { /*background-color: black;*/ border:1px solid brown; }
+            kbd {
+                padding: 0.5em;
+                background-color: lightgrey;
+                border-radius: 0.5em;
+            }
         </style>
     </head>
     <body>
-        <canvas id="tutorial" width="800" height=600"></canvas>
+        <p>Press <kbd>←</kbd> to move left or <kbd>→</kbd> to move right, <kbd>x</kbd> to protest, <kbd>p</kbd> to pause game.</p>
+        <canvas id="screen" width="800" height=550"></canvas>
         <script src="modern-world.js"></script>
     </body>
 </html>
